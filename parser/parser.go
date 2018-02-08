@@ -99,7 +99,7 @@ func parse(id int, j job) {
 			if len(text) > 2 {
 				txt := strings.Join(text[2:], " ")
 				f, err := strconv.ParseFloat(txt, 64)
-				if err == nil {
+				if err == nil && f != 0 {
 					dNum[text[0]] = f
 					return
 				}

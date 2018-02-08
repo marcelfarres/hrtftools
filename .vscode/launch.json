@@ -14,7 +14,7 @@
             "host": "127.0.0.1",
             "program": "${workspaceFolder}",
             "env": {},
-            "args": [ "best-match", "-am-n=CAVUM_CONCHA_HEIGHT_D1,PINNA_HEIGHT_D5", "-am-v=30,4"],
+            "args": [ "best-match", "-am-n=SHOULDER_WIDTH_X12,SHOULDER_CIRCUMFERENCE_X17,HEAD_WIDTH_X1,HEAD_DEPTH_X3,HEAD_HEIGHT_X2", "-am-v=460,1110,180,230,230"],
             "showLog": true
         },
         {

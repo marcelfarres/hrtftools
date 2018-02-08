@@ -54,7 +54,7 @@ func MinDist(d map[string]parser.Measurement, resNum int, keys []string, values 
 	for i, key := range keys {
 		ponderation := 1 / (keyMaxMin[key].max - keyMaxMin[key].min)
 		for _, m := range d {
-			subDist[m.SubjID] = math.Abs(m.DataNum[key]-values[i]) * ponderation
+			subDist[m.SubjID] = subDist[m.SubjID] + math.Abs(m.DataNum[key]-values[i])*ponderation
 			// fmt.Println(math.Abs(m.DataNum[key]-values[i])*ponderation, m.DataNum[key], values[i], ponderation)
 		}
 	}
