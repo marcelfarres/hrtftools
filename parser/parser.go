@@ -64,6 +64,7 @@ func Parse(baseURL string, totalSub int) (b []byte) {
 	if err != nil {
 		fmt.Printf("error encodin JSON: %v", err)
 	}
+	fmt.Printf("Parsing ended, total of %v subjects found", len(measurements))
 	return
 }
 
