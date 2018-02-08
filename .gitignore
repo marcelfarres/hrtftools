@@ -1,3 +1,5 @@
 *.test
 output.json
 debug
+.directory
+.directory
