@@ -31,7 +31,7 @@ func Parse(baseURL string, totalSub int) (b []byte) {
 
 	jobs := make(chan job, totalSub)
 	rs := make(chan Measurement, totalSub)
-	maxWorkers := 10
+	maxWorkers := 20
 
 	wg := &sync.WaitGroup{}
 	wg.Add(maxWorkers)
@@ -53,12 +53,12 @@ func Parse(baseURL string, totalSub int) (b []byte) {
 	}
 	close(jobs)
 	wg.Wait()
+	close(rs)
 
 	measurements = make(map[string]Measurement)
 	for m := range rs {
 		measurements[m.SubjID] = m
 	}
-	close(rs)
 
 	b, err = json.MarshalIndent(measurements, "", "	")
 	if err != nil {
