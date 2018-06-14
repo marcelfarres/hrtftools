@@ -84,4 +84,16 @@ function  r = MinDist(measurements, keyL, values)
         r(idx).dist = subDist (k{1});
         idx=idx+1;
     end
+    
+    total = SortArrayofStruct(r, 'dist');
+    r = total(1:5);
+end
+
+function outStructArray = SortArrayofStruct( structArray, fieldName )
+    if ( ~isempty(structArray) &&  ~isempty (structArray))
+      [~,I] = sort(arrayfun (@(x) x.(fieldName), structArray)) ;
+      outStructArray = structArray(I) ;        
+    else 
+        disp ('Array of struct is empty');
+    end      
 end
