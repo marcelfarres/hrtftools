@@ -22,10 +22,10 @@ for i=1:numel(fn)
     measurements(i).data = containers.Map(keys, values);
 end
 
-keys = ["SHOULDER_WIDTH_X12","SHOULDER_CIRCUMFERENCE_X17","HEAD_WIDTH_X1","HEAD_DEPTH_X3","HEAD_HEIGHT_X2"];
+keys = {'SHOULDER_WIDTH_X12','SHOULDER_CIRCUMFERENCE_X17','HEAD_WIDTH_X1','HEAD_DEPTH_X3','HEAD_HEIGHT_X2'};
 values = [460,1070,190,220,210];
 r = MinDist(measurements, keys, values);
-r
+
 
 
 function  r = MinDist(measurements, keyL, values)
@@ -33,10 +33,10 @@ function  r = MinDist(measurements, keyL, values)
     keyMin = containers.Map('KeyType','char','ValueType','double');
 
     for k = 1:length(keyL)
-        key = convertStringsToChars(keyL(k));
+        key = keyL{k};
         keyFound = false;
-        keyMin(key) = realmin('double');
-        keyMax(key) = realmax('double');
+        keyMin(key) = realmax('double');
+        keyMax(key) = realmin('double');
         
         for i = 1:length(measurements)
             for tKey = keys(measurements(i).data)
@@ -44,10 +44,12 @@ function  r = MinDist(measurements, keyL, values)
                     keyFound = true;
                     tVal = measurements(i).data(tKey{1});
                     if tVal > keyMax(key)
+                        %fprintf('Key is %s, curren max %f next %f max\n', key,keyMax(key),tVal)                    
                         keyMax(key) = tVal;
                         continue
                     end
-                    if tVal> keyMin(key)
+                    if tVal< keyMin(key)
+                        %fprintf('Key is %s, curren min %f next %f min\n', key,keyMin(key),tVal)
                         keyMin(key) = tVal;
                     end
                 end
@@ -60,8 +62,9 @@ function  r = MinDist(measurements, keyL, values)
 
     subDist = containers.Map('KeyType','char','ValueType','double');
     for i = 1:length(keyL)
-        key = convertStringsToChars(keyL(i));
+        key = keyL{i};
         weight = 1/(keyMax(key)-keyMin(key));
+        %fprintf('Key is %s, MinMax %f %f, weight %f.\n', key, keyMax(key), keyMin(key),weight)
         for j = 1:length(measurements)
             if isKey(subDist, measurements(j).SubjID) ~= 1
                 subDist(measurements(j).SubjID) = 0;
